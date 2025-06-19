@@ -14,12 +14,13 @@ return {
           },
         },
       },
+      "j-hui/fidget.nvim",
     },
 
     config = function()
       local capabilities = require("blink.cmp").get_lsp_capabilities()
       require('lspconfig').lua_ls.setup({ capabilities = capabilities })
-
+      require('fidget').setup({})
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('my.lsp', {}),
         callback = function(args)
@@ -50,6 +51,8 @@ return {
             })
           end
         end,
+
+        vim.diagnostic.config({ virtual_text = true })
       })
     end,
   }
