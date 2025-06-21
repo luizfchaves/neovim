@@ -24,21 +24,24 @@ return {
         },
         extensions = {
           fzf = {}
+        },
+        pickers = {
+          find_files = {
+            hidden = true
+          }
         }
       })
       require("telescope").load_extension("fzf")
       require("config.telescope.multigrep").setup()
+      local keymap = require("config.keymap")
 
-      vim.keymap.set('n', "<leader>fh", require('telescope.builtin').help_tags,
-        { desc = "Open telescope for tags" })
-      vim.keymap.set('n', "<leader>ff", require('telescope.builtin').find_files,
-        { desc = "Open telescope for files" })
-      vim.keymap.set('n', "<leader>fc", function()
-          require('telescope.builtin').find_files({
-            cwd = "~/.config/nvim"
-          })
-        end,
-        { desc = "Open telescope for nvim files" })
+      -- desc, command, function
+      keymap.set("Tags documentation", "<leader>/f", require('telescope.builtin').help_tags)
+      keymap.set("Find by name [Telescope]", "<leader>ff", require('telescope.builtin').find_files)
+
+      keymap.set("Neovim config [Telescope]", "<leader>fc",
+        function() require('telescope.builtin').find_files({ cwd = "~/.config/nvim" }) end
+      )
     end,
   }
 }

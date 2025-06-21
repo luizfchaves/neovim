@@ -1,25 +1,29 @@
 require("config.lazy")
+local keymap = require("config.keymap")
+
 vim.cmd("helptags ~/.config/nvim/doc")
 
 --- OPTS
+vim.o.encoding = "utf-8"
 vim.opt.shiftwidth = 2
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.clipboard = "unnamedplus"
+vim.o.ttimeoutlen = 0
 
 --- KEYMAPS
-vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>")
-vim.keymap.set("n", "<leader>x", ":.lua<CR>")
-vim.keymap.set("v", "<leader>x", ":lua<CR>")
-vim.keymap.set("n", "<leader>/", ":help myhelp<CR>")
-vim.keymap.set("v", "//", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], { desc = "Search selected text" })
+keymap.set("Source current file", "<leader><leader>x", "<cmd>source %<CR>")
+keymap.set("Source current line as lua", "<leader>x", ":.lua<CR>")
+keymap.set("Source selected text as lua", "<leader>x", ":lua<CR>", "v")
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv",
-  { desc = "Move line down" })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv",
-  { desc = "Move line up" })
+keymap.set("Open help file", "<leader>/", ":help myhelp<CR>")
+keymap.set("Search selected text", "//", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], "v")
 
---- GODDIES (TJ)
+keymap.set("Close current buffer", "C-d", "<cmd>bd<CR>")
+keymap.set("Move line down", "J", ":m '>+1<CR>gv=gv", "v")
+keymap.set("Move line up", "K", ":m '<-2<CR>gv=gv", "v")
+
+--- # GODDIES (TJ)
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
   group = vim.api.nvim_create_augroup('kicstart-highlight-yank', { clear = true }),
@@ -30,12 +34,9 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- terminal stuff
 local job_id = 0
-vim.keymap.set("n", "<leader>tc", "<cmd>lua vim.cmd('q')<CR>",
-  { desc = "Close terminal" })
-vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>",
-  { desc = "Exit terminal mode" })
-
-vim.keymap.set("n", "<leader>ts", function()
+keymap.set("Close terminal", "<leader>tc", "<cmd>lua vim.cmd('q')<CR>")
+keymap.set("Exit terminal mode", "<esc><esc>", "<C-\\><C-n>", "t")
+keymap.set("Open a small terminal in the bottom", "<leader>ts", function()
   local cwd = vim.fn.expand('%:p')
   vim.cmd.vnew()
   vim.cmd.terminal()
@@ -48,4 +49,4 @@ vim.keymap.set("n", "<leader>ts", function()
   vim.fn.chansend(job_id, { "cd ", cwd, "\r\n" })
   vim.fn.chansend(job_id, { "clear\r\n" })
   vim.cmd.startinsert()
-end, { desc = "Open a small terminal n the botton" })
+end)

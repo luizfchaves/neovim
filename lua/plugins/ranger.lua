@@ -2,14 +2,13 @@ return {
   {
     "kelly-lin/ranger.nvim",
     config = function()
-      require("ranger-nvim").setup()
-      vim.api.nvim_set_keymap("n", "<leader>rr", "", {
-        noremap = true,
-        callback = function()
-          require("ranger-nvim").open(true)
-        end,
-        desc = "Open ranger"
-      })
+      require("ranger-nvim").setup({})
+
+      local keymap = require("config.keymap")
+
+      keymap.set("Open directory with ranger", "<leader>fr",
+        function() require("ranger-nvim").open(true) end
+      )
     end,
   }
 }
