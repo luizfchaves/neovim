@@ -1,20 +1,24 @@
 require("config.lazy")
 local keymap = require("config.keymap")
-
 vim.cmd("helptags ~/.config/nvim/doc")
 
 --- OPTS
 vim.o.encoding = "utf-8"
+vim.o.ttimeoutlen = 0
 vim.opt.shiftwidth = 2
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.clipboard = "unnamedplus"
-vim.o.ttimeoutlen = 0
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.scrolloff = 5
 
---- KEYMAPS
+--- Keymaps
 keymap.set("Source current file", "<leader><leader>x", "<cmd>source %<CR>")
 keymap.set("Source current line as lua", "<leader>x", ":.lua<CR>")
 keymap.set("Source selected text as lua", "<leader>x", ":lua<CR>", "v")
+keymap.set("Clear search highlights", "<esc>", "<cmd>nohlsearch<CR>")
+keymap.set("Quit insert mode", "jj", "<esc>", "i")
 
 keymap.set("Open help file", "<leader>/", ":help myhelp<CR>")
 keymap.set("Search selected text", "//", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], "v")
@@ -23,7 +27,7 @@ keymap.set("Close current buffer", "C-d", "<cmd>bd<CR>")
 keymap.set("Move line down", "J", ":m '>+1<CR>gv=gv", "v")
 keymap.set("Move line up", "K", ":m '<-2<CR>gv=gv", "v")
 
---- # GODDIES (TJ)
+--- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
   group = vim.api.nvim_create_augroup('kicstart-highlight-yank', { clear = true }),
@@ -32,7 +36,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- terminal stuff
+--- Terminal stuff
 local job_id = 0
 keymap.set("Close terminal", "<leader>tc", "<cmd>lua vim.cmd('q')<CR>")
 keymap.set("Exit terminal mode", "<esc><esc>", "<C-\\><C-n>", "t")
