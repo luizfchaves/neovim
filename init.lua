@@ -1,3 +1,5 @@
+--vim.g.ai_assistant = "copilot"
+vim.g.ai_assistant = "supermaven"
 require("config.lazy")
 local keymap = require("config.keymap")
 vim.cmd("helptags ~/.config/nvim/doc")
@@ -11,7 +13,7 @@ vim.opt.relativenumber = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.scrolloff = 5
+vim.opt.scrolloff = 10
 
 --- Keymaps
 keymap.set("Source current file", "<leader><leader>x", "<cmd>source %<CR>")
@@ -19,6 +21,7 @@ keymap.set("Source current line as lua", "<leader>x", ":.lua<CR>")
 keymap.set("Source selected text as lua", "<leader>x", ":lua<CR>", "v")
 keymap.set("Clear search highlights", "<esc>", "<cmd>nohlsearch<CR>")
 keymap.set("Quit insert mode", "jj", "<esc>", "i")
+keymap.set("Open netrw from current file", "<leader>fl", "<cmd>Explore %:p:h<CR>")
 
 keymap.set("Open help file", "<leader>/", ":help myhelp<CR>")
 keymap.set("Search selected text", "//", [[y/\V<C-r>=escape(@",'/\')<CR><CR>]], "v")

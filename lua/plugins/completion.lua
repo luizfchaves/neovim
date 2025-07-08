@@ -13,7 +13,7 @@ return {
     opts = {
       keymap = {
         preset = 'none',
-
+        ["<C-y>"] = { 'select_and_accept' },
       },
 
       appearance = {
