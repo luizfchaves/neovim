@@ -57,3 +57,23 @@ keymap.set("Open a small terminal in the bottom", "<leader>ts", function()
   vim.fn.chansend(job_id, { "clear\r\n" })
   vim.cmd.startinsert()
 end)
+
+
+-- Disabling arrow keys
+-- Disable arrow keys in Normal mode
+vim.keymap.set("n", "<Up>", "<Nop>")
+vim.keymap.set("n", "<Down>", "<Nop>")
+vim.keymap.set("n", "<Left>", "<Nop>")
+vim.keymap.set("n", "<Right>", "<Nop>")
+
+-- Disable arrow keys in Insert mode
+vim.keymap.set("i", "<Up>", "<Nop>")
+vim.keymap.set("i", "<Down>", "<Nop>")
+vim.keymap.set("i", "<Left>", "<Nop>")
+vim.keymap.set("i", "<Right>", "<Nop>")
+
+-- Disable arrow keys in Visual mode
+vim.keymap.set("v", "<Up>", "<Nop>")
+vim.keymap.set("v", "<Down>", "<Nop>")
+vim.keymap.set("v", "<Left>", "<Nop>")
+vim.keymap.set("v", "<Right>", "<Nop>")

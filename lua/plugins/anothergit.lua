@@ -8,5 +8,10 @@ return {
       vim.g.gitgutter_sign_removed = '❌'
       vim.g.gitgutter_sign_modified_removed = '🔄'
     end,
+    config = function()
+      local keymap = require("config.keymap")
+
+      keymap.set("Preview git diff", "<leader>gg", ":GitGutterPreviewHunk<CR>")
+    end,
   }
 }

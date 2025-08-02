@@ -14,13 +14,18 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
+      {
+        "agoodshort/telescope-git-submodules.nvim",
+        dependencies = "akinsho/toggleterm.nvim",
+      },
     },
     -- setting the keybinding for LazyGit with 'keys' is recommended in
     -- order to load the plugin when the command is run for the first time
     keys = {
-      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+      { "<leader>gl", "<cmd>LazyGit<cr>", desc = "LazyGit" }
     },
     config = function()
+      require("telescope").load_extension("git_submodules")
       require("telescope").load_extension("lazygit")
     end,
   }
